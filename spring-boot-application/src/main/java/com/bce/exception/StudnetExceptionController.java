@@ -1,4 +1,4 @@
-package com.javatpoint.exception;
+package com.bce.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

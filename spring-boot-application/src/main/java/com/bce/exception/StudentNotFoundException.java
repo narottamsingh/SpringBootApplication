@@ -1,4 +1,4 @@
-package com.javatpoint.exception;
+package com.bce.exception;
 
 public class StudentNotFoundException extends RuntimeException {
 

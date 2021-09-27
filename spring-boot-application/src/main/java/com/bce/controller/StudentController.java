@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bce.exception.StudentNotFoundException;
 import com.bce.model.Student;
 import com.bce.service.StudentService;
-import com.javatpoint.exception.StudentNotFoundException;
 
 @RestController
 public class StudentController {
