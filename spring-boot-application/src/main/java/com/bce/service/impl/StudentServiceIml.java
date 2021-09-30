@@ -1,6 +1,5 @@
 package com.bce.service.impl;
 
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +9,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.bce.controller.LoggingController;
 import com.bce.model.Student;
 import com.bce.repository.StudentRepository;
 import com.bce.service.StudentService;
@@ -26,13 +28,18 @@ public class StudentServiceIml implements StudentService {
 	@Autowired
 	StudentRepository studentRepository;
 
+	Logger logger = LoggerFactory.getLogger(LoggingController.class);
+
 	@Override
 	public void saveOrUpdate(Student Student) {
+
+		logger.info("Student Succesfully created");
 		studentRepository.save(Student);
 	}
 
 	@Override
 	public List<Student> getAllStudent() {
+		logger.info("All student");
 		List<Student> Students = (List<Student>) studentRepository.findAll();
 
 		return Students;
@@ -179,39 +186,86 @@ public class StudentServiceIml implements StudentService {
 			public Predicate toPredicate(Root<Student> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				List<Predicate> predicates = new ArrayList<Predicate>();
 
-				if (!student.getFirstname().equals("")) {
-					predicates.add(
-							criteriaBuilder.and(criteriaBuilder.like(root.get("firstname"), student.getFirstname())));
-				}
+				// 1. like
+				// if (!student.getFirstname().equals("")) {
+				// predicates.add(
+				// criteriaBuilder.and(criteriaBuilder.like(root.get("firstname"),
+				// student.getFirstname())));
+				// }
+
+				// 2. between
+				// if (!student.getDob().equals("")) {
+				// {
+				// predicates.add(criteriaBuilder.between(root.get("dob"), student.getDob(),
+				// LocalDate.now()));
+
+				// predicates.add(criteriaBuilder.between(root.get("dob"),
+				// LocalDate.now().minusYears(36),
+				// LocalDate.now()));
+				// }
+
+				// }
+
+				// 3. equal
+				// if (!student.getFirstname().equals(""))
+				// predicates.add(criteriaBuilder.equal(root.get("firstname"),
+				// student.getFirstname()));
+
+				List<String> list = new ArrayList<String>();
+				list.add("Rahul");
+				list.add("Shyam");
+				// 4. in
+				// predicates.add(criteriaBuilder.in(root.get("firstname")).value(list));
+
+				// 5. equal
+				// if (!student.getFirstname().equals(""))
+				// predicates.add(criteriaBuilder.equal(root.get("firstname"),
+				// student.getFirstname()));
+
+				// 6. greaterThan
+				// predicates.add(criteriaBuilder.greaterThan(root.get("dob"),
+				// student.getDob()));
+
+				// 7.greaterThanOrEqualTo
+				// predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("dob"),
+				// student.getDob()));
+
+				// 8.lessThan
+				// predicates.add(criteriaBuilder.lessThan(root.get("dob"), student.getDob()));
+
+				// 9. ge
+				// predicates.add(criteriaBuilder.ge(root.get("id"), (Number) student.getId()));
+
+				predicates.add(criteriaBuilder.gt(root.get("id"), (Number) student.getId()));
 
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
-			}
-
-		}, new Specification<Student>() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public Predicate toPredicate(Root<Student> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-				List<Predicate> predicates = new ArrayList<Predicate>();
-
-				if (!student.getLastname().equals("")) {
-					predicates.add(
-							criteriaBuilder.and(criteriaBuilder.like(root.get("lastname"), student.getLastname())));
-				}
-
-				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
-
 			}
 		});
-
 	}
 
-	private List<Student> findAll(Specification<Student> spec1, Specification<Student> spec2) {
-		return studentRepository.findAll(Specification.where(spec1).or(spec2));
+//		}, new Specification<Student>() {
+//
+//			/**
+//			 * 
+//			 */
+//			private static final long serialVersionUID = 1L;
+//
+//			@Override
+//			public Predicate toPredicate(Root<Student> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+//				List<Predicate> predicates = new ArrayList<Predicate>();
+//
+//				if (!student.getLastname().equals("")) {
+//					predicates.add(
+//							criteriaBuilder.and(criteriaBuilder.like(root.get("lastname"), student.getLastname())));
+//				}
+//
+//				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+//
+//			}
+//		});
+
+	private List<Student> findAll(Specification<Student> spec1) {
+		return studentRepository.findAll(spec1);
 
 	}
 

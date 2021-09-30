@@ -12,10 +12,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-public class Application {
-	public static void main(String[] args) {
+public class CrudApplication {
 
-		SpringApplication.run(Application.class, args);
+	public static void main(String[] args) {
+		SpringApplication.run(CrudApplication.class, args);
 	}
 
 	// http://localhost:8080/swagger-ui.html
@@ -24,4 +24,5 @@ public class Application {
 		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
 				.paths(PathSelectors.any()).build();
 	}
+
 }
