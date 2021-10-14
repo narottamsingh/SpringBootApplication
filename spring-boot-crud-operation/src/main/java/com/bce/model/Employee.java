@@ -30,6 +30,17 @@ public class Employee {
 	@Column
 	private String email;
 
+	public Employee() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Employee(Long id, String firstname) {
+		super();
+		this.id = id;
+		this.firstname = firstname;
+	}
+
 	public Long getId() {
 		return id;
 	}

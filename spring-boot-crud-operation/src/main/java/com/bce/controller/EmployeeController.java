@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bce.exceptions.EmployeeNotFoundException;
 import com.bce.model.Employee;
+import com.bce.model.EmployeeCustom;
 import com.bce.service.EmployeeService;
 
 @RestController
@@ -25,6 +26,7 @@ public class EmployeeController {
 	EmployeeService employeeService;
 
 	@PostMapping("/employee")
+
 	public void saveEmployee(@RequestBody Employee employee) {
 		employeeService.saveOrUpdate(employee);
 	}
@@ -60,4 +62,26 @@ public class EmployeeController {
 		employeeService.saveOrUpdate(employee);
 		return new ResponseEntity<>("Employee updated succesfully", HttpStatus.OK);
 	}
+
+	@GetMapping("/employee/{id}")
+	public Employee findEmployeeById(@PathVariable long id) {
+
+		return employeeService.getEmployeeById(id);
+	}
+
+	@GetMapping("/employeecustom")
+	public List<Employee> findAllCustomEmployeeData() {
+		return employeeService.getAllCustomerEmployeeData();
+	}
+
+	@GetMapping("/employeecustom1")
+	public List<EmployeeCustom> findAllCustomEmployeeData1() {
+		return employeeService.getAllCustomerEmployeeData1();
+	}
+
+	@GetMapping("/employeecustom2")
+	public List<Employee> findAllCustomEmployeeData2() {
+		return employeeService.getAllCustomerEmployeeData2();
+	}
+
 }

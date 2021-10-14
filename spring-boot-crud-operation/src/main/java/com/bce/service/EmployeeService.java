@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.bce.model.Employee;
+import com.bce.model.EmployeeCustom;
 
 @Service
 public interface EmployeeService {
@@ -16,4 +17,11 @@ public interface EmployeeService {
 	Employee getEmployeeById(long id);
 
 	void delete(long id);
+
+	List<Employee> getAllCustomerEmployeeData();
+
+	List<EmployeeCustom> getAllCustomerEmployeeData1();
+
+	List<Employee> getAllCustomerEmployeeData2();
+
 }
