@@ -9,9 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.hateoas.RepresentationModel;
+
 @Entity
 @Table
-public class Employee {
+public class Employee extends RepresentationModel<Employee> {
 
 	@Id
 	@Column

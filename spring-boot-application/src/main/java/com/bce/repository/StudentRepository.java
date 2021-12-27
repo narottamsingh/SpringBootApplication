@@ -65,4 +65,5 @@ public interface StudentRepository extends CrudRepository<Student, Long>, Paging
 
 	// EndingWith
 	public List<Student> findByFirstnameEndingWith(String firstName);
+
 }
