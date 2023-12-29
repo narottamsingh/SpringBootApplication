@@ -1,0 +1,18 @@
+FROM java-8
+#RUN apk add --update ttf-dejavu && rm -rf /var/cache/apk/*
+#RUN apk update  && apk add --no-cache apk-tools && apk add --no-cache dbus && apk add --no-cache cgmanager && apk add --no-cache glib-networking && apk add --no-cache libnih-dbus-dev && apk add --no-cache dconf-cli  && apk add --no-cache fontconfig
+
+#RUN apk update;
+#RUN apk add -f apt-utils;
+#RUN apk add -f libfreetype6;
+#RUN apk add --no-cache -f fontconfig;
+#RUN apk add -f fonts-dejavu;
+#RUN apk add -f msttcorefonts;
+#RUN apk add -f libfontconfig1;
+#RUN apk add -f freetype;
+#RUN fc-cache --force
+    
+VOLUME /tmp
+ARG JAR_FILE=*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
